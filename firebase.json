@@ -8,10 +8,6 @@
     ],
     "rewrites": [
       {
-        "source": "/api/contact",
-        "function": "api"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -6,7 +6,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  output: 'export',
   images: {
     domains: ['localhost', 'cdn.jsdelivr.net', 'www.prismui.tech', 'upload.wikimedia.org'],
     unoptimized: true,

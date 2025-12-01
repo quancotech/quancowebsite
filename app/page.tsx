@@ -888,17 +888,23 @@ export default function HomePage() {
                     setSubmitMessage('')
 
                     try {
-                      const response = await fetch('/api/contact', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
+                      // Use Firebase client SDK directly
+                      const { db } = await import('@/lib/firebase')
+                      const { collection, addDoc, serverTimestamp } = await import('firebase/firestore')
+                      
+                      const docRef = await addDoc(collection(db, 'contactSubmissions'), {
+                        name: formData.name.trim(),
+                        email: formData.email.trim(),
+                        service: formData.service || '',
+                        meetingDate: formData.meetingDate || '',
+                        message: formData.message.trim(),
+                        timestamp: serverTimestamp(),
+                        status: 'new'
                       })
 
-                      const data = await response.json()
+                      const data = { success: true, message: 'Form submitted successfully', id: docRef.id }
 
-                      if (response.ok) {
+                      if (data.success) {
                         setSubmitStatus('success')
                         setSubmitMessage('Thank you! Your message has been sent successfully.')
                         // Reset form
@@ -919,13 +925,20 @@ export default function HomePage() {
                         }
                       } else {
                         setSubmitStatus('error')
-                        const errorMsg = data.error || 'Failed to send message. Please try again.'
-                        setSubmitMessage(errorMsg)
-                        console.error('Form submission error:', data)
+                        setSubmitMessage('Failed to send message. Please try again.')
                       }
                     } catch (error: any) {
                       setSubmitStatus('error')
-                      const errorMsg = error?.message || 'An error occurred. Please try again later.'
+                      let errorMsg = 'An error occurred. Please try again later.'
+                      
+                      if (error?.code === 'permission-denied') {
+                        errorMsg = 'Permission denied. Please check Firebase Firestore rules.'
+                      } else if (error?.code === 'unavailable') {
+                        errorMsg = 'Firebase service is temporarily unavailable. Please try again later.'
+                      } else if (error?.message) {
+                        errorMsg = error.message
+                      }
+                      
                       setSubmitMessage(errorMsg)
                       console.error('Form submission catch error:', error)
                     } finally {

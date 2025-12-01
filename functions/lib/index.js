@@ -36,7 +36,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.api = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
-admin.initializeApp();
+admin.initializeApp({
+    projectId: process.env.GCLOUD_PROJECT || 'quancotech'
+});
 exports.api = functions.https.onRequest(async (req, res) => {
     // Set CORS headers
     res.set('Access-Control-Allow-Origin', '*');
