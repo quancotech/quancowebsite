@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Quanco Technologiesnologies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': '#000000',
+                        'accent-blue': '#007FFF',
+                        'highlight-gold': '#daa627',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space-mono': ['Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-primary-bg text-white font-inter">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-primary-bg/90 backdrop-blur-md border-b border-accent-blue/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-black p-3 rounded-lg">
+                            <img src="logo.png" alt="Quanco Technologiesnologies" class="h-16 w-auto">
+                        </div>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-white hover:text-highlight-gold transition-colors duration-300">Home</a>
+                        <a href="services.html" class="nav-link text-highlight-gold border-b-2 border-highlight-gold">Services</a>
+                        <a href="portfolio.html" class="nav-link text-white hover:text-highlight-gold transition-colors duration-300">Portfolio</a>
+                        <a href="about.html" class="nav-link text-white hover:text-highlight-gold transition-colors duration-300">About</a>
+                        <a href="contact.html" class="nav-link text-white hover:text-highlight-gold transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-highlight-gold transition-colors duration-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-primary-bg/95 backdrop-blur-md border-t border-accent-blue/20">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-white hover:text-highlight-gold transition-colors duration-300">Home</a>
+                <a href="services.html" class="block px-3 py-2 text-highlight-gold">Services</a>
+                <a href="portfolio.html" class="block px-3 py-2 text-white hover:text-highlight-gold transition-colors duration-300">Portfolio</a>
+                <a href="about.html" class="block px-3 py-2 text-white hover:text-highlight-gold transition-colors duration-300">About</a>
+                <a href="contact.html" class="block px-3 py-2 text-white hover:text-highlight-gold transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 bg-gradient-to-br from-primary-bg via-primary-bg to-accent-blue/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    <span class="text-white animated-text-1">Our</span>
+                    <span class="text-highlight-gold animated-text-2"> Services</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed animated-text-3">
+                    Comprehensive technology solutions designed to transform your business and drive innovation
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 parallax-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Data Science -->
+            <div id="data-science" class="mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="text-accent-blue text-6xl mb-6">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6 text-white">
+                            <span class="text-highlight-gold">Data Science</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Transform your raw data into actionable insights with our advanced data science solutions. 
+                            We leverage cutting-edge machine learning algorithms, statistical analysis, and predictive 
+                            modeling to help you make data-driven decisions.
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Machine Learning Model Development</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Predictive Analytics & Forecasting</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Statistical Analysis & Modeling</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Data Visualization & Reporting</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="bg-gradient-to-br from-primary-bg/60 to-accent-blue/5 backdrop-blur-sm border border-accent-blue/20 rounded-2xl p-8 hover:border-highlight-gold/50 transition-all duration-700 transform hover:-translate-y-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-highlight-gold/10 group">
+                            <div class="text-center">
+                                <div class="text-6xl text-highlight-gold mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">📊</div>
+                                <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-highlight-gold transition-colors duration-300">Data Science Pipeline</h3>
+                                <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                                    From data collection to model deployment, we handle every step of your data science journey.
+                                </p>
+                                <div class="space-y-3">
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Data Collection & Cleaning</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.1s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Exploratory Data Analysis</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.2s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Model Training & Validation</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.3s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Deployment & Monitoring</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Stack Development -->
+            <div id="full-stack" class="mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="bg-gradient-to-br from-primary-bg/60 to-highlight-gold/5 backdrop-blur-sm border border-accent-blue/20 rounded-2xl p-8 hover:border-highlight-gold/50 transition-all duration-700 transform hover:-translate-y-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-accent-blue/10 group">
+                            <div class="text-center">
+                                <div class="text-6xl text-highlight-gold mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">💻</div>
+                                <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-highlight-gold transition-colors duration-300">Full Stack Solutions</h3>
+                                <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                                    Complete web and mobile applications built with modern technologies and best practices.
+                                </p>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 text-center group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Frontend</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 text-center group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.1s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Backend</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 text-center group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.2s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Database</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 text-center group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.3s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">DevOps</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-accent-blue text-6xl mb-6">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6 text-white">
+                            <span class="text-highlight-gold">Full Stack</span> Development
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            End-to-end web and mobile application development using cutting-edge technologies. 
+                            From concept to deployment, we create scalable, secure, and high-performance solutions.
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">React, Vue.js, Angular Frontend Development</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Node.js, Python, Java Backend Services</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Database Design & Optimization</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Cloud Deployment & DevOps</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Analytics -->
+            <div id="data-analytics" class="mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="text-accent-blue text-6xl mb-6">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6 text-white">
+                            <span class="text-highlight-gold">Data Analytics</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Unlock the power of your data with comprehensive analytics solutions. We help you understand 
+                            trends, identify opportunities, and make informed business decisions through advanced data analysis.
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Business Intelligence Dashboards</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Real-time Data Processing</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Custom Reporting Solutions</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Data Integration & ETL</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="bg-gradient-to-br from-primary-bg/60 to-accent-blue/5 backdrop-blur-sm border border-accent-blue/20 rounded-2xl p-8 hover:border-highlight-gold/50 transition-all duration-700 transform hover:-translate-y-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-highlight-gold/10 group">
+                            <div class="text-center">
+                                <div class="text-6xl text-highlight-gold mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">📈</div>
+                                <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-highlight-gold transition-colors duration-300">Analytics Dashboard</h3>
+                                <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                                    Interactive dashboards that provide real-time insights into your business performance.
+                                </p>
+                                <div class="space-y-3">
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">KPI Tracking</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.1s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Trend Analysis</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.2s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Custom Metrics</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.3s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Automated Reports</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI/ML Engineering -->
+            <div id="ai-ml" class="mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="bg-gradient-to-br from-primary-bg/60 to-highlight-gold/5 backdrop-blur-sm border border-accent-blue/20 rounded-2xl p-8 hover:border-highlight-gold/50 transition-all duration-700 transform hover:-translate-y-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-accent-blue/10 group">
+                            <div class="text-center">
+                                <div class="text-6xl text-highlight-gold mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">🤖</div>
+                                <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-highlight-gold transition-colors duration-300">AI/ML Solutions</h3>
+                                <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                                    Custom artificial intelligence and machine learning solutions tailored to your business needs.
+                                </p>
+                                <div class="space-y-3">
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Natural Language Processing</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.1s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Computer Vision</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.2s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Deep Learning Models</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:scale-105" style="transition-delay: 0.3s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Model Optimization</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-accent-blue text-6xl mb-6">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6 text-white">
+                            <span class="text-highlight-gold">AI/ML</span> Engineering
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Build intelligent systems that learn, adapt, and improve over time. Our AI/ML engineering 
+                            services help you harness the power of artificial intelligence to solve complex business challenges.
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Custom AI Model Development</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Machine Learning Pipeline Setup</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Model Training & Optimization</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">AI System Integration</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Agents -->
+            <div id="ai-agents" class="mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="text-accent-blue text-6xl mb-6">
+                            <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6 text-white">
+                            <span class="text-highlight-gold">AI Agents</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Deploy intelligent autonomous agents that can perform complex tasks, make decisions, 
+                            and interact with users naturally. Our AI agents are designed to enhance productivity and automate workflows.
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Conversational AI Chatbots</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Task Automation Agents</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Intelligent Process Automation</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-highlight-gold rounded-full mr-4"></div>
+                                <span class="text-gray-300">Multi-Agent Systems</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="bg-gradient-to-br from-primary-bg/60 to-accent-blue/5 backdrop-blur-sm border border-accent-blue/20 rounded-2xl p-8 hover:border-highlight-gold/50 transition-all duration-700 transform hover:-translate-y-3 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-highlight-gold/10 group">
+                            <div class="text-center">
+                                <div class="text-6xl text-highlight-gold mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">🎯</div>
+                                <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-highlight-gold transition-colors duration-300">AI Agent Capabilities</h3>
+                                <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                                    Intelligent agents that can understand context, learn from interactions, and perform complex tasks autonomously.
+                                </p>
+                                <div class="space-y-3">
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Natural Language Understanding</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.1s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Decision Making</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.2s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Learning & Adaptation</span>
+                                    </div>
+                                    <div class="bg-accent-blue/10 rounded-lg p-3 group-hover:bg-accent-blue/20 transition-all duration-300 transform group-hover:translate-x-2" style="transition-delay: 0.3s">
+                                        <span class="text-sm text-accent-blue font-semibold group-hover:text-white transition-colors duration-300">Multi-Platform Integration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-gradient-to-b from-accent-blue/5 to-primary-bg parallax-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="text-white">Our</span>
+                    <span class="text-highlight-gold"> Process</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    A proven methodology that ensures successful project delivery and client satisfaction
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="bg-highlight-gold/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-highlight-gold/20 transition-colors duration-300">
+                        <span class="text-3xl font-bold text-highlight-gold">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Discovery</h3>
+                    <p class="text-gray-300">We analyze your requirements and understand your business goals</p>
+                </div>
+                
+                <div class="text-center group">
+                    <div class="bg-accent-blue/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent-blue/20 transition-colors duration-300">
+                        <span class="text-3xl font-bold text-accent-blue">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Planning</h3>
+                    <p class="text-gray-300">We create a detailed project plan with timelines and milestones</p>
+                </div>
+                
+                <div class="text-center group">
+                    <div class="bg-highlight-gold/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-highlight-gold/20 transition-colors duration-300">
+                        <span class="text-3xl font-bold text-highlight-gold">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Development</h3>
+                    <p class="text-gray-300">We build your solution using cutting-edge technologies</p>
+                </div>
+                
+                <div class="text-center group">
+                    <div class="bg-accent-blue/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent-blue/20 transition-colors duration-300">
+                        <span class="text-3xl font-bold text-accent-blue">4</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Deployment</h3>
+                    <p class="text-gray-300">We deploy and maintain your solution with ongoing support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-accent-blue/10 to-highlight-gold/10">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                <span class="text-white">Ready to Get</span>
+                <span class="text-highlight-gold block">Started?</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Let's discuss your project requirements and create a custom solution that drives your business forward
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="cta-button bg-highlight-gold text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg hover:bg-highlight-gold/90 transition-all duration-300 transform hover:scale-105">
+                    Start Your Project
+                </a>
+                <a href="portfolio.html" class="cta-button border-2 border-accent-blue text-accent-blue px-8 py-4 rounded-lg font-semibold text-lg hover:bg-accent-blue hover:text-white transition-all duration-300 transform hover:scale-105">
+                    View Our Work
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-bg border-t border-accent-blue/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-2xl font-bold text-highlight-gold mb-4">Quanco Technologiesnologies</h3>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Leading provider of innovative tech services specializing in Data Science, 
+                        Full Stack Development, Data Analytics, AI/ML Engineering, and AI Agents.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-highlight-gold transition-colors duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-highlight-gold transition-colors duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-highlight-gold transition-colors duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#data-science" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Data Science</a></li>
+                        <li><a href="#full-stack" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Full Stack</a></li>
+                        <li><a href="#data-analytics" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Data Analytics</a></li>
+                        <li><a href="#ai-ml" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">AI/ML Engineering</a></li>
+                        <li><a href="#ai-agents" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">AI Agents</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Portfolio</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Contact</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Careers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight-gold transition-colors duration-300">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-accent-blue/20 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 Quanco Technologiesnologies. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="gsap-animations.js"></script>
+</body>
+</html>
