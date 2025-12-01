@@ -108,7 +108,7 @@ export default function Footer() {
         
         <div className="border-t border-accent-blue/20 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            &copy; {currentYear} Quanco Technologies. All rights reserved.
+            &copy; {currentYear} Quanco Tech. All rights reserved.
           </p>
         </div>
       </div>

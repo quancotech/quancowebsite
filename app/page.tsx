@@ -1097,7 +1097,7 @@ export default function HomePage() {
           </p>
           <div className="border-t border-white/10 pt-8">
             <p className="text-sm text-gray-500">
-              © 2024 Quanco Tech. All rights reserved.
+              © {new Date().getFullYear()} Quanco Tech. All rights reserved.
             </p>
           </div>
         </div>
