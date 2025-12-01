@@ -1,0 +1,32 @@
+[debug] [2025-12-01T07:31:50.034Z] ----------------------------------------------------------------------
+[debug] [2025-12-01T07:31:50.034Z] Command:       /Users/syedrahman/.nvm/versions/node/v18.20.8/bin/node /Users/syedrahman/.nvm/versions/node/v18.20.8/bin/firebase deploy
+[debug] [2025-12-01T07:31:50.034Z] CLI Version:   13.35.1
+[debug] [2025-12-01T07:31:50.035Z] Platform:      darwin
+[debug] [2025-12-01T07:31:50.035Z] Node Version:  v18.20.8
+[debug] [2025-12-01T07:31:50.035Z] Time:          Mon Dec 01 2025 13:01:50 GMT+0530 (India Standard Time)
+[debug] [2025-12-01T07:31:50.035Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-12-01T07:31:50.117Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-01T07:31:50.117Z] > authorizing via signed-in user (quancotech.help@gmail.com)
+[debug] [2025-12-01T07:31:50.117Z] [iam] checking project quancotech for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-12-01T07:31:50.118Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:50.118Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:50.118Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/quancotech:testIamPermissions [none]
+[debug] [2025-12-01T07:31:50.118Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/quancotech:testIamPermissions x-goog-quota-user=projects/quancotech
+[debug] [2025-12-01T07:31:50.118Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/quancotech:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-01T07:31:51.749Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/quancotech:testIamPermissions 200
+[debug] [2025-12-01T07:31:51.749Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/quancotech:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-01T07:31:51.750Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:51.750Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:51.751Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-12-01T07:31:51.751Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-12-01T07:31:53.770Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions 404
+[debug] [2025-12-01T07:31:53.770Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions {"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}}
+[debug] [2025-12-01T07:31:53.771Z] [functions] service account IAM check errored, deploy may fail: Request to https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account {"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":404,"message":"Unknown service account","status":"NOT_FOUND"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://iam.googleapis.com/v1/projects/quancotech/serviceAccounts/quancotech@appspot.gserviceaccount.com:testIamPermissions had HTTP Error: 404, Unknown service account","status":404}
+[debug] [2025-12-01T07:31:53.772Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:53.772Z] Checked if tokens are valid: true, expires at: 1764577862237
+[debug] [2025-12-01T07:31:53.773Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/quancotech [none]
+[debug] [2025-12-01T07:32:23.781Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/quancotech, {"headers":{},"method":"GET","signal":{}}): AbortError: The user aborted a request.
+[debug] [2025-12-01T07:32:23.783Z] Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects/quancotech (original: The user aborted a request.)
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
