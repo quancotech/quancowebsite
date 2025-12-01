@@ -62,11 +62,27 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const cursorRef = useRef<HTMLDivElement>(null)
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    service: '',
+    meetingDate: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitMessage, setSubmitMessage] = useState('')
+  const [isClient, setIsClient] = useState(false)
+  const flatpickrRef = useRef<any>(null)
+  
+  // Set client-side flag to prevent hydration mismatch
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
-    // Loading animation
-    setTimeout(() => setIsLoading(false), 2000)
-
     if (typeof window !== 'undefined' && window.gsap) {
       const { gsap, ScrollTrigger, TextPlugin } = window
       gsap.registerPlugin(ScrollTrigger, TextPlugin)
@@ -99,16 +115,114 @@ export default function HomePage() {
         })
       }
 
-      // Loading screen animation
-      gsap.to('.loading-screen', {
-        duration: 1,
-        opacity: 0,
-        delay: 1.5,
-        ease: 'power2.out',
-        onComplete: () => {
-          document.querySelector('.loading-screen')?.remove()
+      // Loading screen parallax animations
+      const initLoadingAnimations = () => {
+        const loadingScreen = document.querySelector('.loading-screen')
+        if (!loadingScreen) return
+
+        // Logo parallax animation
+        const logoMain = document.querySelector('.loading-logo-main')
+        if (logoMain) {
+          gsap.fromTo(logoMain,
+            { scale: 0.8, opacity: 0, y: 50 },
+            { 
+              scale: 1, 
+              opacity: 1, 
+              y: 0, 
+              duration: 1.5, 
+              ease: 'power3.out',
+              delay: 0.3
+            }
+          )
+          
+          // Floating animation for logo
+          gsap.to(logoMain, {
+            y: -15,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: 1.8
+          })
         }
-      })
+
+        // Particles parallax animation
+        const particles = document.querySelectorAll('.loading-particle')
+        if (particles.length > 0) {
+          particles.forEach((particle: any, index: number) => {
+            gsap.fromTo(particle,
+              { 
+                x: 0,
+                y: 0,
+                opacity: 0,
+                scale: 0
+              },
+              {
+                x: Math.random() * 200 - 100,
+                y: Math.random() * 200 - 100,
+                opacity: Math.random() * 0.8 + 0.2,
+                scale: 1,
+                duration: 2 + Math.random() * 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: index * 0.05
+              }
+            )
+          })
+        }
+
+        // Loading progress bar animation
+        const progressBar = document.querySelector('.loading-progress-bar')
+        if (progressBar) {
+          gsap.fromTo(progressBar,
+            { width: '0%' },
+            {
+              width: '100%',
+              duration: 2,
+              ease: 'power2.inOut',
+              delay: 0.5
+            }
+          )
+        }
+
+        // Text fade in animation
+        const loadingText = document.querySelector('.loading-text-container')
+        if (loadingText) {
+          gsap.fromTo(loadingText,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              delay: 1,
+              ease: 'power2.out'
+            }
+          )
+        }
+
+        // Fade out entire loading screen
+        gsap.to('.loading-screen', {
+          duration: 1,
+          opacity: 0,
+          delay: 2,
+          ease: 'power2.out',
+          onComplete: () => {
+            setIsLoading(false)
+          }
+        })
+      }
+
+      // Initialize loading animations when loading screen is present
+      if (isLoading) {
+        const timer = setTimeout(() => {
+          initLoadingAnimations()
+        }, 100)
+        
+        return () => {
+          clearTimeout(timer)
+        }
+      }
 
       // Hero animations
       gsap.fromTo('.hero-title', 
@@ -309,12 +423,18 @@ export default function HomePage() {
 
     // Initialize Flatpickr for contact form
     if (typeof window !== 'undefined' && window.flatpickr) {
-      window.flatpickr('#meeting-date', {
-        enableTime: true,
-        dateFormat: 'Y-m-d H:i',
-        minDate: 'today',
-        theme: 'dark'
-      })
+      const meetingDateInput = document.getElementById('meeting-date')
+      if (meetingDateInput && !flatpickrRef.current) {
+        flatpickrRef.current = window.flatpickr('#meeting-date', {
+          enableTime: true,
+          dateFormat: 'Y-m-d H:i',
+          minDate: 'today',
+          theme: 'dark',
+          onChange: (selectedDates: Date[], dateStr: string) => {
+            setFormData((prev) => ({ ...prev, meetingDate: dateStr }))
+          }
+        })
+      }
     }
   }, [])
 
@@ -363,15 +483,62 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="loading-screen fixed inset-0 bg-primary-bg z-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative">
-            <div className="w-20 h-20 border-4 border-accent-blue/30 rounded-full animate-spin border-t-accent-blue mb-8"></div>
-            <div className="absolute inset-0 w-20 h-20 border-4 border-highlight-gold/30 rounded-full animate-ping"></div>
+      <div className="loading-screen fixed inset-0 bg-primary-bg z-50 flex items-center justify-center overflow-hidden">
+        {/* Main Content */}
+        <div className="relative z-10 text-center">
+          {/* Logo with Parallax Animation */}
+          <div className="relative mb-8 loading-logo-container">
+            <div className="loading-logo-main">
+              <img 
+                src="/logo.png" 
+                alt="Quanco Technologies" 
+                className="w-48 h-auto mx-auto drop-shadow-2xl"
+                style={{ filter: 'drop-shadow(0 0 30px rgba(218, 166, 39, 0.5))' }}
+              />
+            </div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Quanco Tech</h2>
-          <p className="text-gray-400">Loading amazing experience...</p>
+
+          {/* Loading Text */}
+          <div className="loading-text-container">
+            <p className="text-gray-300 text-lg font-medium tracking-wider">
+              Loading amazing experience...
+            </p>
+            {/* Loading Progress Bar */}
+            <div className="mt-6 w-64 mx-auto">
+              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                <div className="loading-progress-bar h-full bg-gradient-to-r from-accent-blue via-highlight-gold to-accent-blue rounded-full"></div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Parallax Particles - Client-only to prevent hydration mismatch */}
+        {isClient && (
+          <div className="absolute inset-0 pointer-events-none">
+            {Array.from({ length: 30 }, (_, i) => {
+              // Generate random values only on client
+              const left = Math.random() * 100
+              const top = Math.random() * 100
+              const width = Math.random() * 4 + 2
+              const height = Math.random() * 4 + 2
+              
+              return (
+                <div
+                  key={`particle-${i}`}
+                  className="absolute loading-particle"
+                  style={{
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    width: `${width}px`,
+                    height: `${height}px`,
+                  }}
+                >
+                  <div className="w-full h-full rounded-full bg-highlight-gold/60"></div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
@@ -497,23 +664,33 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Floating Background Elements */}
-      <div className="fixed inset-0 pointer-events-none opacity-40" style={{ zIndex: 1 }}>
-        {Array.from({ length: 15 }, (_, i) => (
-          <div
-            key={i}
-            className="floating-element absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
-            }}
-          >
-            <div className="w-full h-full rounded-full bg-gradient-to-r from-accent-blue/10 to-highlight-gold/10 animate-pulse"></div>
-          </div>
-        ))}
-      </div>
+      {/* Floating Background Elements - Client-only to prevent hydration mismatch */}
+      {isClient && (
+        <div className="fixed inset-0 pointer-events-none opacity-40" style={{ zIndex: 1 }}>
+          {Array.from({ length: 15 }, (_, i) => {
+            // Generate random values only on client
+            const left = Math.random() * 100
+            const top = Math.random() * 100
+            const width = Math.random() * 4 + 2
+            const height = Math.random() * 4 + 2
+            
+            return (
+              <div
+                key={i}
+                className="floating-element absolute"
+                style={{
+                  left: `${left}%`,
+                  top: `${top}%`,
+                  width: `${width}px`,
+                  height: `${height}px`,
+                }}
+              >
+                <div className="w-full h-full rounded-full bg-gradient-to-r from-accent-blue/10 to-highlight-gold/10 animate-pulse"></div>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       {/* Hero Section with Animated Canvas */}
       <AnimatedHero />
@@ -694,29 +871,114 @@ export default function HomePage() {
               <div className="card-3d interactive bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
                 <h3 className="text-2xl font-bold mb-8 text-highlight-gold">Send us a message</h3>
                 
-                <form className="space-y-6">
+                <form 
+                  className="space-y-6"
+                  onSubmit={async (e) => {
+                    e.preventDefault()
+                    
+                    // Validate required fields
+                    if (!formData.name || !formData.email || !formData.message) {
+                      setSubmitStatus('error')
+                      setSubmitMessage('Please fill in all required fields (Name, Email, Message)')
+                      return
+                    }
+
+                    setIsSubmitting(true)
+                    setSubmitStatus('idle')
+                    setSubmitMessage('')
+
+                    try {
+                      const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                      })
+
+                      const data = await response.json()
+
+                      if (response.ok) {
+                        setSubmitStatus('success')
+                        setSubmitMessage('Thank you! Your message has been sent successfully.')
+                        // Reset form
+                        setFormData({
+                          name: '',
+                          email: '',
+                          service: '',
+                          meetingDate: '',
+                          message: ''
+                        })
+                        // Reset Flatpickr if it exists
+                        if (flatpickrRef.current) {
+                          try {
+                            flatpickrRef.current.clear()
+                          } catch (e) {
+                            // Ignore if instance is not available
+                          }
+                        }
+                      } else {
+                        setSubmitStatus('error')
+                        const errorMsg = data.error || 'Failed to send message. Please try again.'
+                        setSubmitMessage(errorMsg)
+                        console.error('Form submission error:', data)
+                      }
+                    } catch (error: any) {
+                      setSubmitStatus('error')
+                      const errorMsg = error?.message || 'An error occurred. Please try again later.'
+                      setSubmitMessage(errorMsg)
+                      console.error('Form submission catch error:', error)
+                    } finally {
+                      setIsSubmitting(false)
+                    }
+                  }}
+                >
+                  {submitStatus === 'success' && (
+                    <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-sm">
+                      {submitMessage}
+                    </div>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm">
+                      {submitMessage}
+                    </div>
+                  )}
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Name *</label>
                       <input
                         type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20"
                         placeholder="Your name"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
                       <input
                         type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20"
                         placeholder="your@email.com"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Service</label>
-                    <select className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20">
+                    <select 
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20"
+                      disabled={isSubmitting}
+                    >
                       <option value="">Select a service</option>
                       <option value="data-science">Data Science</option>
                       <option value="full-stack">Full Stack Development</option>
@@ -732,25 +994,33 @@ export default function HomePage() {
                     <input
                       type="text"
                       id="meeting-date"
+                      value={formData.meetingDate}
+                      onChange={(e) => setFormData({ ...formData, meetingDate: e.target.value })}
                       className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20"
                       placeholder="Select date and time"
+                      disabled={isSubmitting}
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Message *</label>
                     <textarea
                       rows={5}
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="interactive w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all duration-300 hover:border-white/20 resize-none"
                       placeholder="Tell us about your project..."
+                      disabled={isSubmitting}
                     ></textarea>
                   </div>
                   
                   <button
                     type="submit"
-                    className="magnetic w-full bg-gradient-to-r from-highlight-gold to-yellow-400 text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl glow-pulse"
+                    disabled={isSubmitting}
+                    className="magnetic w-full bg-gradient-to-r from-highlight-gold to-yellow-400 text-primary-bg px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl glow-pulse disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>
