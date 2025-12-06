@@ -10,10 +10,11 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 const teamMembers = [
   {
     quote:
-      "As a Co-Founder, I'm passionate about building innovative solutions that transform businesses. Our vision is to make cutting-edge technology accessible to companies of all sizes, driving digital transformation and success.",
+      "As a Co-Founder & CTO, I'm passionate about building innovative solutions that transform businesses. Our vision is to make cutting-edge technology accessible to companies of all sizes, driving digital transformation and success.",
     name: "Mohammed Abdul Junaid",
-    designation: "Co Founder",
+    designation: "Co-Founder & CTO",
     src: "/team/member1.png",
+    initials: null,
   },
   {
     quote:
@@ -21,6 +22,7 @@ const teamMembers = [
     name: "Mohammed Abdul Imtiyaz",
     designation: "AI Engineer",
     src: "/team/member2.png",
+    initials: null,
   },
   {
     quote:
@@ -28,6 +30,39 @@ const teamMembers = [
     name: "Syed Rahman Hussain",
     designation: "AI Data Scientist",
     src: "/team/member3.png",
+    initials: null,
+  },
+  {
+    quote:
+      "As an AI Engineer, I focus on developing cutting-edge artificial intelligence solutions that drive innovation and solve real-world challenges. I'm committed to creating intelligent systems that enhance business operations and deliver measurable results.",
+    name: "Riza ur Rahman",
+    designation: "AI Engineer",
+    src: "/team/member4.JPG",
+    initials: null,
+  },
+  {
+    quote:
+      "As a Marketing Officer, I drive brand awareness and growth through strategic marketing initiatives. I'm passionate about connecting our innovative technology solutions with the right audiences and building lasting relationships with our clients.",
+    name: "Mohsin Khan",
+    designation: "Marketing Officer",
+    src: "/team/member5.jpg",
+    initials: null,
+  },
+  {
+    quote:
+      "As an AI Engineer, I develop intelligent systems and machine learning models that solve complex business problems. I'm dedicated to leveraging the power of artificial intelligence to create innovative solutions that drive success for our clients.",
+    name: "Syed Abdul Baseer",
+    designation: "AI Engineer",
+    src: null,
+    initials: "AB",
+  },
+  {
+    quote:
+      "As CEO & Founder, I lead our mission to revolutionize businesses through innovative technology solutions. I'm committed to building a company that makes advanced AI and data science accessible, helping organizations achieve their digital transformation goals.",
+    name: "Mohammed Basith Farooqui",
+    designation: "CEO & Founder",
+    src: null,
+    initials: "MB",
   },
 ];
 
@@ -35,7 +70,8 @@ type TeamMember = {
   quote: string;
   name: string;
   designation: string;
-  src: string;
+  src: string | null;
+  initials: string | null;
 };
 
 // --- Main Animated Team Component ---
@@ -48,6 +84,16 @@ const AnimatedTeam = ({
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleNext = React.useCallback(() => {
     setActive((prev) => (prev + 1) % teamMembers.length);
@@ -76,32 +122,46 @@ const AnimatedTeam = ({
             <AnimatePresence>
               {teamMembers.map((member, index) => (
                 <motion.div
-                  key={member.src}
+                  key={member.name}
                   initial={{ opacity: 0, scale: 0.9, y: 50, rotate: randomRotate() }}
                   animate={{
-                    opacity: isActive(index) ? 1 : 0.5,
+                    opacity: isActive(index) ? 1 : (isMobile ? 0 : 0.5),
                     scale: isActive(index) ? 1 : 0.9,
                     y: isActive(index) ? 0 : 20,
                     zIndex: isActive(index) ? teamMembers.length : teamMembers.length - Math.abs(index - active),
                     rotate: isActive(index) ? '0deg' : randomRotate(),
+                    display: isActive(index) || !isMobile ? 'block' : 'none',
                   }}
                   exit={{ opacity: 0, scale: 0.9, y: -50 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                   style={{ perspective: '1000px' }}
                 >
-                  <img
-                    src={member.src}
-                    alt={member.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-contain shadow-2xl border-2 border-accent-blue/20 bg-primary-bg/50"
-                    onError={(e) => {
-                      e.currentTarget.src = `https://placehold.co/500x500/1e293b/daa627?text=${member.name.charAt(0)}`;
-                      e.currentTarget.onerror = null;
-                    }}
-                  />
+                  {member.src ? (
+                    <img
+                      src={member.src}
+                      alt={member.name}
+                      width={500}
+                      height={500}
+                      draggable={false}
+                      className="h-full w-full rounded-3xl object-contain shadow-2xl border-2 border-accent-blue/20 bg-primary-bg/50"
+                      onError={(e) => {
+                        const initials = member.initials || member.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase();
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent && !parent.querySelector('.initials-placeholder')) {
+                          const placeholder = document.createElement('div');
+                          placeholder.className = 'initials-placeholder h-full w-full rounded-3xl shadow-2xl border-2 border-accent-blue/20 bg-primary-bg flex items-center justify-center';
+                          placeholder.innerHTML = `<span class="text-6xl font-bold text-highlight-gold">${initials}</span>`;
+                          parent.appendChild(placeholder);
+                        }
+                      }}
+                    />
+                  ) : (
+                    <div className="h-full w-full rounded-3xl shadow-2xl border-2 border-accent-blue/20 bg-primary-bg flex items-center justify-center">
+                      <span className="text-6xl font-bold text-highlight-gold">{member.initials || member.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()}</span>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>

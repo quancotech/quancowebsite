@@ -4,6 +4,17 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Firebase is configured
+    if (!db) {
+      return NextResponse.json(
+        { 
+          error: 'Firebase is not configured. Please add Firebase credentials to .env.local file.',
+          details: 'firebase_not_configured'
+        },
+        { status: 503 }
+      )
+    }
+
     const body = await request.json()
     const { name, email, service, meetingDate, message } = body
 
